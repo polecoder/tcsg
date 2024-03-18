@@ -6,12 +6,14 @@
       {
         "name": "Primary",
         "description": "Primary button style",
-        "html": "<button class=\"bg-indigo-600 text-white border-white border-[1px] py-1 px-3 uppercase rounded-md font-semibold hover:text-indigo-600 hover:bg-white hover:border-indigo-600 transition-all duration-200\">Button</button>"
+        "html": "<button class=\"bg-indigo-600 text-white border-white border-[1px] py-1 px-3 uppercase rounded-md font-semibold hover:text-indigo-600 hover:bg-white hover:border-indigo-600 transition-all duration-200\">Button</button>",
+        "javascript": ""
       },
       {
         "name": "Disabled",
         "description": "Disabled button style",
-        "html": "<button class=\"bg-indigo-600 text-white border-white border-2 py-1 px-3 uppercase rounded-md font-semibold opacity-75 pointer-events-none\">Button</button>"
+        "html": "<button class=\"bg-indigo-600 text-white border-white border-2 py-1 px-3 uppercase rounded-md font-semibold opacity-75 pointer-events-none\">Button</button>",
+        "javascript": ""
       }
     ]
   },
@@ -51,6 +53,155 @@
           "    </div>",
           "  </div>",
           "</nav>"
+        ],
+        "javascript": [
+          "let dropdownMenuBtn = document.getElementById('dropdownMenuBtn');",
+          "let dropdownMenu = document.getElementById('dropdownMenu');",
+          "",
+          "dropdownMenuBtn.addEventListener('click', () => {",
+          "  const isOpen = dropdownMenu.classList.contains('max-h-0');",
+          "  if (isOpen) {",
+          "    dropdownMenu.classList.remove('max-h-0', 'opacity-0');",
+          "    dropdownMenu.classList.add('max-h-screen', 'opacity-100');",
+          "    dropdownMenuBtn.ariaExpanded = true;",
+          "    return;",
+          "  }",
+          "  dropdownMenu.classList.remove('max-h-screen', 'opacity-100');",
+          "  dropdownMenu.classList.add('max-h-0', 'opacity-0');",
+          "  dropdownMenuBtn.ariaExpanded = false;",
+          "});"
+        ]
+      },
+      {
+        "name": "With image logo",
+        "description": "Responsive navbar with an image based logo",
+        "html": [
+          "<nav class=\"bg-indigo-600 text-white w-full\">",
+          "  <div class=\"md:flex md:justify-between\">",
+          "    <div class=\"px-3 py-2 flex justify-between items-center\">",
+          "      <img src=\"https://placehold.co/32\" alt=\"Placeholder logo\" class=\"h-8\">",
+          "      <button id=\"dropdownMenuBtn\" class=\"p-1 md:hidden\" aria-expanded=\"false\" aria-controls=\"dropdownMenu\" aria-label=\"Toggle navigation\">",
+          "        <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">",
+          "          <path d=\"M4 6H20M4 12H20M4 18H20\" stroke=\"#FFF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>",
+          "        </svg>",
+          "      </button>",
+          "    </div>",
+          "    <div id=\"dropdownMenu\" class=\"overflow-hidden transition-[opacity,max-height] duration-700 ease-[cubic-bezier(0.78,0.02,0.2,1)] max-h-0 opacity-0 md:overflow-auto md:transition-none md:max-h-none md:opacity-100\">",
+          "      <ul class=\"border-t-2 border-white md:border-0 md:flex md:h-full\">",
+          "        <li class=\"border-b-[1px] border-white md:border-0\">",
+          "          <a class=\"px-3 py-1 block md:h-full md:align-middle md:flex md:items-center\" href=\"#\"><span>Link 1</span></a>",
+          "        </li>",
+          "        <li class=\"border-b-[1px] border-white md:border-0\">",
+          "          <a class=\"px-3 py-1 block md:h-full md:align-middle md:flex md:items-center\" href=\"#\"><span>Link 2</span></a>",
+          "        </li>",
+          "        <li class=\"border-b-[1px] border-white md:border-0\">",
+          "          <a class=\"px-3 py-1 block md:h-full md:align-middle md:flex md:items-center\" href=\"#\"><span>Link 3</span></a>",
+          "        </li>",
+          "        <li>",
+          "          <a class=\"px-3 py-1 block md:h-full md:align-middle md:flex md:items-center\" href=\"#\"><span>Link 4</span></a>",
+          "        </li>",
+          "      </ul>",
+          "    </div>",
+          "  </div>",
+          "</nav>"
+        ],
+        "javascript": [
+          "let dropdownMenuBtn = document.getElementById('dropdownMenuBtn');",
+          "let dropdownMenu = document.getElementById('dropdownMenu');",
+          "",
+          "dropdownMenuBtn.addEventListener('click', () => {",
+          "  const isOpen = dropdownMenu.classList.contains('max-h-0');",
+          "  if (isOpen) {",
+          "    dropdownMenu.classList.remove('max-h-0', 'opacity-0');",
+          "    dropdownMenu.classList.add('max-h-screen', 'opacity-100');",
+          "    dropdownMenuBtn.ariaExpanded = true;",
+          "    return;",
+          "  }",
+          "  dropdownMenu.classList.remove('max-h-screen', 'opacity-100');",
+          "  dropdownMenu.classList.add('max-h-0', 'opacity-0');",
+          "  dropdownMenuBtn.ariaExpanded = false;",
+          "});"
+        ]
+      }
+    ]
+  },
+  "image-gallery-snippet": {
+    "name": "Image Gallery",
+    "description": "A simple image gallery component",
+    "variants": [
+      {
+        "name": "With 3 images",
+        "description": "A simple image gallery with 5 images",
+        "html": [
+          "<section class=\"flex max-w-[600px] h-[430px] mx-auto\">",
+          "  <img src=\"https://images.indianexpress.com/2018/04/avengers-scarletwitch.jpg?w=630\" class=\"w-0 flex-grow object-cover opacity-80 transition-all duration-300 hover:cursor-crosshair hover:w-[300px] hover:opacity-100 hover:contrast-[120%]\" alt=\"Placeholder image\">",
+          "  <img src=\"https://images.indianexpress.com/2018/04/avengers-iron-man.jpg?w=630\" class=\"w-0 flex-grow object-cover opacity-80 transition-all duration-300 hover:cursor-crosshair hover:w-[300px] hover:opacity-100 hover:contrast-[120%]\" alt=\"Placeholder image\">",
+          "  <img src=\"https://images.indianexpress.com/2018/04/avengers-captain-america.jpg?w=630\" class=\"w-0 flex-grow object-cover opacity-80 transition-all duration-300 hover:cursor-crosshair hover:w-[300px] hover:opacity-100 hover:contrast-[120%]\" alt=\"Placeholder image\">",
+          "  <img src=\"https://images.indianexpress.com/2018/04/avengers-thor.jpg?w=630\" class=\"w-0 flex-grow object-cover opacity-80 transition-all duration-300 hover:cursor-crosshair hover:w-[300px] hover:opacity-100 hover:contrast-[120%]\" alt=\"Placeholder image\">",
+          "  <img src=\"https://images.indianexpress.com/2018/04/avengers-blackwidow.jpg?w=630\" class=\"w-0 flex-grow object-cover opacity-80 transition-all duration-300 hover:cursor-crosshair hover:w-[300px] hover:opacity-100 hover:contrast-[120%]\" alt=\"Placeholder image\">",
+          "</section>"
+        ],
+        "javascript": ""
+      }
+    ]
+  },
+  "modal-snippet": {
+    "name": "Modal",
+    "description": "A simple modal component",
+    "variants": [
+      {
+        "name": "With close button",
+        "description": "A simple modal with a close button",
+        "html": [
+          "<button id=\"openModalBtn\" class=\"bg-indigo-600 text-white border-white border-[1px] py-1 px-3 uppercase rounded-md font-semibold hover:text-indigo-600 hover:bg-white hover:border-indigo-600 transition-all duration-200\">Open modal</button>",
+          "",
+          "      <div id=\"modal\" class=\"fixed inset-0 justify-center items-center z-[99] hidden\" aria-hidden=\"true\">",
+          "        <div id=\"modalBackdrop\" class=\"absolute inset-0 bg-black opacity-0 transition-opacity duration-500\"></div>",
+          "        <div id=\"modalContent\" class=\"bg-indigo-600 text-white max-w-[600px] rounded-md opacity-0 scale-150 transition-[opacity,transform] duration-500\" tabindex=\"-1\">",
+          "          <div class=\"flex justify-between border-b-[1px] p-4 gap-4\">",
+          "            <h5 class=\"text-lg font-semibold\">Modal title</h5>",
+          "            <button id=\"closeModalBtn\" class=\"p-1\" aria-label=\"Close modal\">",
+          "              <svg width=\"24\" height=\"24\" viewBox=\"-0.5 0 25 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">",
+          "                <path d=\"M3 21.32L21 3.32001\" stroke=\"#FFF\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>",
+          "                <path d=\"M3 3.32001L21 21.32\" stroke=\"#FFF\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>",
+          "              </svg>",
+          "            </button>",
+          "          </div>",
+          "          <div>",
+          "            <p class=\"p-4\">Modal content goes here</p>",
+          "          </div>",
+          "      </div>"
+        ],
+        "javascript": [
+          "let modal = document.getElementById('modal');",
+          "let modalContent = document.getElementById('modalContent');",
+          "let modalBackdrop = document.getElementById('modalBackdrop');",
+          "let openModalBtn = document.getElementById('openModalBtn');",
+          "let closeModalBtn = document.getElementById('closeModalBtn');",
+          "",
+          "openModalBtn.addEventListener('click', () => {",
+          "  modal.classList.remove('hidden');",
+          "  modal.classList.add('flex');",
+          "  setTimeout(() => {",
+          "    modalContent.classList.remove('opacity-0', 'scale-150');",
+          "    modalContent.classList.add('opacity-100', 'scale-100');",
+          "    modalBackdrop.classList.remove('opacity-0');",
+          "    modalBackdrop.classList.add('opacity-50');",
+          "  }, 1); // 1ms delay is required to trigger the animation (bug in Chrome)",
+          "  modal.setAttribute('aria-hidden', 'false');",
+          "});",
+          "",
+          "closeModalBtn.addEventListener('click', () => {",
+          "  modalContent.classList.remove('opacity-100', 'scale-100');",
+          "  modalContent.classList.add('opacity-0', 'scale-150');",
+          "  modalBackdrop.classList.remove('opacity-50');",
+          "  modalBackdrop.classList.add('opacity-0');",
+          "  setTimeout(() => {",
+          "    modal.classList.remove('flex');",
+          "    modal.classList.add('hidden');",
+          "  }, 500);",
+          "  modal.setAttribute('aria-hidden', 'true');",
+          "});"
         ]
       }
     ]
