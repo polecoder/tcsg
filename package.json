@@ -12,10 +12,23 @@
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "tailwind-components-snippet-generator.helloWorld",
-      "title": "Hello World"
-    }]
+    "commands": [
+      {
+        "command": "tailwind-components-snippet-generator.helloWorld",
+        "title": "Hello World"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "html",
+        "path": "./snippets/html.json"
+      },
+      
+      {
+        "language": "javascript",
+        "path": "./snippets/javascript.json"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",

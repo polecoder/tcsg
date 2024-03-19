@@ -1,0 +1,59 @@
+{
+  "Navbar Image/Text": {
+    "prefix": "navbar",
+    "body": [
+      "let dropdownMenuBtn = document.getElementById('dropdownMenuBtn');",
+      "let dropdownMenu = document.getElementById('dropdownMenu');",
+      "",
+      "dropdownMenuBtn.addEventListener('click', () => {",
+      "  const isOpen = dropdownMenu.classList.contains('max-h-0');",
+      "  if (isOpen) {",
+      "    dropdownMenu.classList.remove('max-h-0', 'opacity-0');",
+      "    dropdownMenu.classList.add('max-h-screen', 'opacity-100');",
+      "    dropdownMenuBtn.ariaExpanded = true;",
+      "    return;",
+      "  }",
+      "  dropdownMenu.classList.remove('max-h-screen', 'opacity-100');",
+      "  dropdownMenu.classList.add('max-h-0', 'opacity-0');",
+      "  dropdownMenuBtn.ariaExpanded = false;",
+      "});"
+    ],
+    "description": "Responsive navbar with text/image based logo"
+  },
+
+  "Centered Modal": {
+    "prefix": "MODAL-CEN",
+    "body": [
+      "let modal = document.getElementById('modal');",
+      "let modalContent = document.getElementById('modalContent');",
+      "let modalBackdrop = document.getElementById('modalBackdrop');",
+      "let openModalBtn = document.getElementById('openModalBtn');",
+      "let closeModalBtn = document.getElementById('closeModalBtn');",
+      "",
+      "openModalBtn.addEventListener('click', () => {",
+      "  modal.classList.remove('hidden');",
+      "  modal.classList.add('flex');",
+      "  setTimeout(() => {",
+      "    modalContent.classList.remove('opacity-0', 'scale-150');",
+      "    modalContent.classList.add('opacity-100', 'scale-100');",
+      "    modalBackdrop.classList.remove('opacity-0');",
+      "    modalBackdrop.classList.add('opacity-50');",
+      "  }, 1); // 1ms delay is required to trigger the animation (bug in Chrome)",
+      "  modal.setAttribute('aria-hidden', 'false');",
+      "});",
+      "",
+      "closeModalBtn.addEventListener('click', () => {",
+      "  modalContent.classList.remove('opacity-100', 'scale-100');",
+      "  modalContent.classList.add('opacity-0', 'scale-150');",
+      "  modalBackdrop.classList.remove('opacity-50');",
+      "  modalBackdrop.classList.add('opacity-0');",
+      "  setTimeout(() => {",
+      "    modal.classList.remove('flex');",
+      "    modal.classList.add('hidden');",
+      "  }, 500);",
+      "  modal.setAttribute('aria-hidden', 'true');",
+      "});"
+    ],
+    "description": "A viewport centered modal with open and close buttons"
+  }
+}
