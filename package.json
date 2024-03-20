@@ -1,5 +1,5 @@
 {
-  "name": "tailwind-components-snippet-generator",
+  "name": "tcsg",
   "displayName": "Tailwind Components Snippet Generator",
   "description": "",
   "version": "0.0.1",
@@ -12,10 +12,32 @@
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [{
+        "id": "snippetExplorerTCSG",
+        "title": "TCSG Snippets",
+        "icon": "./img/icon.svg"
+      }]
+    },
+    "views": {
+      "snippetExplorerTCSG": [{
+        "id": "snippetExplorerTCSG",
+        "name": "TCSG Snippets",
+        "when": "true"
+      }]
+    },
     "commands": [
       {
-        "command": "tailwind-components-snippet-generator.helloWorld",
-        "title": "Hello World"
+        "command": "tcsg.helloWorld",
+        "title": "TCSG: Hello World"
+      },
+      {
+        "command": "tcsg.showCustomizationUI",
+        "title": "TCSG: Show Customization UI"
+      },
+      {
+        "command": "tcsg.insertSnippet",
+        "title": "TCSG: Insert Snippet"
       }
     ],
     "snippets": [

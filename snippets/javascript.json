@@ -1,6 +1,6 @@
 {
   "Navbar Image/Text": {
-    "prefix": "navbar",
+    "prefix": "NAVBAR",
     "body": [
       "let dropdownMenuBtn = document.getElementById('dropdownMenuBtn');",
       "let dropdownMenu = document.getElementById('dropdownMenu');",

@@ -1,31 +1,83 @@
 // The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+
 const vscode = require('vscode');
+const {getWebviewContent} = require('./src/webview.js');
+const {SnippetProvider} = require('./src/snippetProvider.js');
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "tailwind-components-snippet-generator" is now active!');
+  const snippetProvider = new SnippetProvider();
+  vscode.window.registerTreeDataProvider('snippetExplorerTCSG', snippetProvider);
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('tailwind-components-snippet-generator.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Tailwind Components Snippet Generator!');
-    // Display current time in an information message
-    vscode.window.showInformationMessage('Current time is: ' + new Date().toLocaleTimeString());
-	});
+  let commands = [
+    {
+      commandId: 'tcsg.helloWorld',
+      callback: function () {
+        vscode.window.showInformationMessage('Hello World from Tailwind Components Snippet Generator!');
+        vscode.window.showInformationMessage('Current time is: ' + new Date().toLocaleTimeString());
+      } 
+    },
+    {
+      commandId: 'tcsg.showCustomizationUI',
+      callback: function () {
+        console.log('"showCustomizationUI" was called');
+        const panel = vscode.window.createWebviewPanel(
+          'snippetCustomization', // Identificador
+          'Snippet Customization', // Título para display al usuario
+          vscode.ViewColumn.One, // Columna donde mostrar el panel
+          {}
+        );
 
-	context.subscriptions.push(disposable);
+        panel.webview.html = getWebviewContent(); // Definido en ./src/webview.js
+      }
+    },
+    {
+      /*
+      PRE-CONDICIÓN:
+      lang == 'html' || lang == 'javascript'
+
+      POST-CONDICIÓN:
+      1) Si el editor activo es de tipo 'html' o 'javascript', inserta el snippet en el editor
+      2) Si el editor activo no es de tipo 'html' o 'javascript', muestra un mensaje de error de lenguaje
+      3) Si no se encuentra un editor activo, muestra un mensaje de error de no encontrar editor activo
+      */
+      commandId: 'tcsg.insertSnippet',
+      callback: async function (snippet, lang) {
+        console.log("Inserting snippet...", snippet, lang);
+        const editor = vscode.window.activeTextEditor;
+        if (editor && (lang === editor.document.languageId)) {
+          // Confirmación del usuario
+          const userConfirmation = await vscode.window.showQuickPick(['yes', 'no'], {
+            placeHolder: 'Insert the ' + snippet.prefix + ' snippet?'
+          })
+          
+          if (userConfirmation === 'yes') {
+            console.log("Inserting snippet...", snippet);
+            vscode.window.showInformationMessage('Inserting ' + snippet.prefix + ' snippet...');
+            // snippetString tiene que ser una string, por esto usamos join
+            const snippetString = snippet.body.join('\n');
+            editor.insertSnippet(new vscode.SnippetString(snippetString));
+          }
+
+        } else if (editor && (lang !== editor.document.languageId)) {
+          vscode.window.showErrorMessage('Invalid language. Please try again.');
+
+        } else {
+          vscode.window.showErrorMessage('No active text editor found. Please try again.');
+        }
+      }
+    }
+  ]
+
+  commands.forEach(command => {
+    let disposable = vscode.commands.registerCommand(command.commandId, command.callback);
+    context.subscriptions.push(disposable);
+  });
 }
 
 // This method is called when your extension is deactivated
