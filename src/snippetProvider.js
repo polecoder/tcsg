@@ -38,7 +38,7 @@ class SnippetProvider {
           };
 
           treeItem.iconPath = {
-            light: path.join(__dirname, '../img/snippet-icon.svg'),
+            light: "path.join(__dirname, '../img/snippet-icon.svg')",
             dark: path.join(__dirname, '../img/snippet-icon.svg')
           };
 

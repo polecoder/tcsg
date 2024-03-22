@@ -26,11 +26,26 @@
         "when": "true"
       }]
     },
+    "menus": {
+      "view/title": [
+        {
+          "command": "tcsg.selectIOFiles",
+          "when": "view == snippetExplorerTCSG",
+          "group": "navigation@1"
+        },
+        {
+          "command": "tcsg.buildTailwind",
+          "when": "view == snippetExplorerTCSG",
+          "group": "navigation@2"
+        },
+        {
+          "command": "tcsg.clearIOFiles",
+          "when": "view == snippetExplorerTCSG",
+          "group": "navigation@3"
+        }
+      ]
+    },
     "commands": [
-      {
-        "command": "tcsg.helloWorld",
-        "title": "TCSG: Hello World"
-      },
       {
         "command": "tcsg.showCustomizationUI",
         "title": "TCSG: Show Customization UI"
@@ -38,14 +53,43 @@
       {
         "command": "tcsg.insertSnippet",
         "title": "TCSG: Insert Snippet"
+      },
+      {
+        "command": "tcsg.clearIOFiles",
+        "title": "TCSG: Clear Input/Output Files",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "tcsg.selectIOFiles",
+        "title": "TCSG: Select Input/Output Files",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "tcsg.buildTailwind",
+        "title": "TCSG: Build Tailwind",
+        "icon": "$(debug-start)"
       }
     ],
+    "configuration": {
+      "title": "TCSG",
+      "properties": {
+        "tcsg.tailwindInputFilePath": {
+          "type": "string",
+          "default": "",
+          "description": "The path to the Tailwind CSS input file"
+        },
+        "tcsg.tailwindOutputFilePath": {
+          "type": "string",
+          "default": "",
+          "description": "The path to the Tailwind CSS output file"
+        }
+      }
+    },
     "snippets": [
       {
         "language": "html",
         "path": "./snippets/html.json"
       },
-      
       {
         "language": "javascript",
         "path": "./snippets/javascript.json"
