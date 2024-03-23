@@ -16,7 +16,7 @@
       "activitybar": [{
         "id": "snippetExplorerTCSG",
         "title": "TCSG Snippets",
-        "icon": "./img/icon.svg"
+        "icon": "./assets/icon.svg"
       }]
     },
     "views": {
@@ -46,14 +46,6 @@
       ]
     },
     "commands": [
-      {
-        "command": "tcsg.showCustomizationUI",
-        "title": "TCSG: Show Customization UI"
-      },
-      {
-        "command": "tcsg.insertSnippet",
-        "title": "TCSG: Insert Snippet"
-      },
       {
         "command": "tcsg.clearIOFiles",
         "title": "TCSG: Clear Input/Output Files",

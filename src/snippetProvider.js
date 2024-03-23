@@ -14,7 +14,6 @@ function getSnippets(lang) {
   const snippets = JSON.parse(fs.readFileSync(snippetsPath, 'utf8'));
   return snippets;
 }
-
 class SnippetProvider {
   getTreeItem(element) {
     return element;
@@ -38,8 +37,8 @@ class SnippetProvider {
           };
 
           treeItem.iconPath = {
-            light: "path.join(__dirname, '../img/snippet-icon.svg')",
-            dark: path.join(__dirname, '../img/snippet-icon.svg')
+            light: "path.join(__dirname, '../assets/snippet-icon.svg')",
+            dark: path.join(__dirname, '../assets/snippet-icon.svg')
           };
 
           htmlSnippets.push(treeItem);
@@ -62,8 +61,8 @@ class SnippetProvider {
           };
 
           treeItem.iconPath = {
-            light: path.join(__dirname, '../img/snippet-icon.svg'),
-            dark: path.join(__dirname, '../img/snippet-icon.svg')
+            light: path.join(__dirname, '../assets/snippet-icon.svg'),
+            dark: path.join(__dirname, '../assets/snippet-icon.svg')
           };
           
           javascriptSnippets.push(treeItem);
@@ -74,15 +73,15 @@ class SnippetProvider {
       let rootItems = [];
       const html = new vscode.TreeItem('HTML Snippets', vscode.TreeItemCollapsibleState.Collapsed);
       html.iconPath = {
-        light: path.join(__dirname, '../img/html-icon.svg'),
-        dark: path.join(__dirname, '../img/html-icon.svg')
+        light: path.join(__dirname, '../assets/html-icon.svg'),
+        dark: path.join(__dirname, '../assets/html-icon.svg')
       };
       rootItems.push(html);
 
       const javascript = new vscode.TreeItem('Javascript Snippets', vscode.TreeItemCollapsibleState.Collapsed);
       javascript.iconPath = {
-        light: path.join(__dirname, '../img/js-icon.svg'),
-        dark: path.join(__dirname, '../img/js-icon.svg')
+        light: path.join(__dirname, '../assets/js-icon.svg'),
+        dark: path.join(__dirname, '../assets/js-icon.svg')
       };
       rootItems.push(javascript);
       

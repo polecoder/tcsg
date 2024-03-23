@@ -1,7 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 
 const vscode = require('vscode');
-const {getWebviewContent} = require('./src/webview.js');
 const {SnippetProvider} = require('./src/snippetProvider.js');
 
 // This method is called when your extension is activated
@@ -21,20 +20,6 @@ function activate(context) {
         vscode.window.showInformationMessage('Hello World from Tailwind Components Snippet Generator!');
         vscode.window.showInformationMessage('Current time is: ' + new Date().toLocaleTimeString());
       } 
-    },
-    {
-      commandId: 'tcsg.showCustomizationUI',
-      callback: function () {
-        console.log('"showCustomizationUI" was called');
-        const panel = vscode.window.createWebviewPanel(
-          'snippetCustomization', // Identificador
-          'Snippet Customization', // Título para display al usuario
-          vscode.ViewColumn.One, // Columna donde mostrar el panel
-          {}
-        );
-
-        panel.webview.html = getWebviewContent(); // Definido en ./src/webview.js
-      }
     },
     {
       /*
@@ -76,14 +61,23 @@ function activate(context) {
       */
       commandId: 'tcsg.clearIOFiles',
       callback: async function () {
-        const userConfirmation = await vscode.window.showQuickPick(['Yes, clear build files', 'No, leave existing files'], {
-          placeHolder: 'Are you sure you want to clear Input/Output files for Tailwind Build?'
-        });
-        if (userConfirmation === 'Yes, clear build files') {
-          const config = vscode.workspace.getConfiguration('tcsg');
-          await config.update('tailwindInputFilePath', '', vscode.ConfigurationTarget.Workspace);
-          await config.update('tailwindOutputFilePath', '', vscode.ConfigurationTarget.Workspace);
-          vscode.window.showInformationMessage('Tailwind Input/Output files have been cleared.');
+        // Obtenemos las rutas de los archivos I/O desde la configuración actual del workspace
+        const config = vscode.workspace.getConfiguration('tcsg');
+        let inputFilePath = config.get('tailwindInputFilePath');
+        let outputFilePath = config.get('tailwindOutputFilePath');
+
+        if (inputFilePath && outputFilePath) {
+          const userConfirmation = await vscode.window.showQuickPick(['Yes, clear build files', 'No, leave existing files'], {
+            placeHolder: 'Are you sure you want to clear Input/Output files for Tailwind Build?'
+          });
+          if (userConfirmation === 'Yes, clear build files') {
+            const config = vscode.workspace.getConfiguration('tcsg');
+            await config.update('tailwindInputFilePath', '', vscode.ConfigurationTarget.Workspace);
+            await config.update('tailwindOutputFilePath', '', vscode.ConfigurationTarget.Workspace);
+            vscode.window.showInformationMessage('Tailwind Input/Output files have been cleared.');
+          }
+        } else {
+          vscode.window.showInformationMessage('No Tailwind Input/Output files to clear.');
         }
       }
     },
