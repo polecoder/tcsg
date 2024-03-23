@@ -55,5 +55,35 @@
       "});"
     ],
     "description": "A viewport centered modal with open and close buttons"
+  },
+
+  "Fullscreen Modal": {
+    "prefix": "MODAL-FS",
+    "body": [
+      "let modalContent = document.getElementById('modalContent');",
+      "let openModalBtn = document.getElementById('openModalBtn');",
+      "let closeModalBtn = document.getElementById('closeModalBtn');",
+      "",
+      "openModalBtn.addEventListener('click', () => {",
+      "  modalContent.classList.remove('hidden');",
+      "  modalContent.classList.add('fixed');",
+      "  setTimeout(() => {",
+      "    modalContent.classList.remove('opacity-0', '-translate-y-[50px]');",
+      "    modalContent.classList.add('opacity-100', 'translate-y-0');",
+      "  }, 1); // 1ms delay is required to trigger the animation (bug in Chrome)",
+      "  modalContent.setAttribute('aria-hidden', 'false');",
+      "});",
+      "",
+      "closeModalBtn.addEventListener('click', () => {",
+      "  modalContent.classList.remove('opacity-100', 'translate-y-0');",
+      "  modalContent.classList.add('opacity-0', '-translate-y-[50px]');",
+      "  setTimeout(() => {",
+      "    modalContent.classList.remove('fixed');",
+      "    modalContent.classList.add('hidden');",
+      "  }, 500);",
+      "  modalContent.setAttribute('aria-hidden', 'true');",
+      "});"
+    ],
+    "description": "A fullscreen modal with open and close buttons"
   }
 }

@@ -121,5 +121,28 @@
       "</div>"
     ],
     "description": "A viewport centered modal with open and close buttons"
+  },
+
+  "Fullscreen Modal": {
+    "prefix": "MODAL-FS",
+    "body": [
+      "<button id=\"openModalBtn\" class=\"bg-indigo-600 text-white border-white border-[1px] py-1 px-3 uppercase rounded-md font-semibold hover:text-indigo-600 hover:bg-white hover:border-indigo-600 transition-all duration-200\">Open modal</button>",
+      "",
+      "      <div id=\"modalContent\" class=\"bg-indigo-600 text-white inset-0 z-[99] transition-[opacity,transform] duration-500 opacity-0 -translate-y-[50px] hidden\" aria-hidden=\"true\">",
+      "        <div class=\"flex justify-between border-b-[1px] p-4\">",
+      "          <h5 class=\"text-3xl font-semibold\">Modal title</h5>",
+      "          <button id=\"closeModalBtn\" class=\"p-1\" aria-label=\"Close modal\">",
+      "            <svg width=\"30\" height=\"30\" viewBox=\"-0.5 0 25 25\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">",
+      "              <path d=\"M3 21.32L21 3.32001\" stroke=\"#FFF\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>",
+      "              <path d=\"M3 3.32001L21 21.32\" stroke=\"#FFF\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>",
+      "            </svg>",
+      "          </button>",
+      "        </div>",
+      "        <div>",
+      "          <p class=\"p-4\">Modal content goes here</p>",
+      "        </div>",
+      "      </div>"
+    ],
+    "description": "A fullscreen modal with open and close buttons"
   }
 }
