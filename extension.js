@@ -155,7 +155,7 @@ function activate(context) {
           return;
         }
 
-        const buildCommand = `npx tailwindcss -i "${inputFilePath}" -o "${outputFilePath}"`;
+        const buildCommand = `npx tailwindcss -i "${inputFilePath}" -o "${outputFilePath} --watch"`;
 
         // Asumimos que el usuario hace el build de Tailwind en el primer directorio del workspace
         const workspaceFolder = vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders[0].uri.fsPath : '.';
