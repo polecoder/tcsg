@@ -39,7 +39,7 @@
           "group": "navigation@1"
         },
         {
-          "command": "tcsg.buildTailwind",
+          "command": "tcsg.buildProject",
           "when": "view == snippetExplorerTCSG",
           "group": "navigation@2"
         },
@@ -62,8 +62,8 @@
         "icon": "$(go-to-file)"
       },
       {
-        "command": "tcsg.buildTailwind",
-        "title": "TCSG: Build Tailwind",
+        "command": "tcsg.buildProject",
+        "title": "TCSG: Build Project",
         "icon": "$(debug-start)"
       },
       {

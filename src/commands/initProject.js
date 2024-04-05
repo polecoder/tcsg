@@ -36,8 +36,21 @@ async function initProject() {
 
   const projectRoot = vscode.workspace.workspaceFolders
     ? vscode.workspace.workspaceFolders[0].uri.fsPath
-    : ".";
+    : "";
   log("DEBUG", "initProject", `Project root: ${projectRoot}`);
+
+  if (!projectRoot) {
+    vscode.window.showErrorMessage(
+      "No workspace folder found. Terminating process."
+    );
+    log(
+      "ERROR",
+      "initProject",
+      "No workspace folder found. Terminating process."
+    );
+    show();
+    return;
+  }
 
   /* Inicializar el paquete con las dependencias básicas */
   try {
@@ -179,6 +192,7 @@ module.exports = {
     show();
     return;
   }
+  vscode.window.showInformationMessage("Project initialized successfully.");
   log("INFO", "initProject", "Project initialized successfully.");
 }
 
