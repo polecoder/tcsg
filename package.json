@@ -2,7 +2,8 @@
   "name": "tcsg",
   "displayName": "Tailwind Components Snippet Generator",
   "description": "",
-  "version": "0.0.1",
+  "publisher": "polecoder",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.87.0"
   },
@@ -13,18 +14,22 @@
   "main": "./extension.js",
   "contributes": {
     "viewsContainers": {
-      "activitybar": [{
-        "id": "snippetExplorerTCSG",
-        "title": "TCSG Snippets",
-        "icon": "./assets/icon.svg"
-      }]
+      "activitybar": [
+        {
+          "id": "snippetExplorerTCSG",
+          "title": "TCSG Snippets",
+          "icon": "./assets/icon.svg"
+        }
+      ]
     },
     "views": {
-      "snippetExplorerTCSG": [{
-        "id": "snippetExplorerTCSG",
-        "name": "TCSG Snippets",
-        "when": "true"
-      }]
+      "snippetExplorerTCSG": [
+        {
+          "id": "snippetExplorerTCSG",
+          "name": "TCSG Snippets",
+          "when": "true"
+        }
+      ]
     },
     "menus": {
       "view/title": [
@@ -60,6 +65,10 @@
         "command": "tcsg.buildTailwind",
         "title": "TCSG: Build Tailwind",
         "icon": "$(debug-start)"
+      },
+      {
+        "command": "tcsg.initProject",
+        "title": "TCSG: Initialize Project"
       }
     ],
     "configuration": {
