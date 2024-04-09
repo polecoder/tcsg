@@ -7,32 +7,23 @@ const exec = util.promisify(require("child_process").exec);
 const fs = require("fs").promises;
 const { log, show } = require("../logger");
 
-/*
-PRE-CONDICIÓN: ninguna
-POST-CONDICIÓN: 
-  1. Inicializa un paquete de npm para el proyecto actual con las siguientes dependencias: tailwindcss, prettier, prettier-plugin-tailwindcss, clean-css-cli, terser. 
-  2. Agrega los scripts necesarios para el uso de estos en el archivo package.json. 
-  3. También crea los archivos tailwind.config.js y .prettierrc con la configuración básica.
-*/
+/**
+ * WARNING: This function assumes that the workspace opened in VSCode is the project root.
+ *
+ * @brief Initializes a new project with the necessary dependencies and scripts.
+ *
+ * @description
+ * 1) Initializes a npm project with the following dependencies: tailwindcss, prettier, prettier-plugin-tailwindcss, clean-css-cli, terser.
+ * 2) Adds the necessary scripts to the package.json file.
+ * 3) Creates the tailwind.config.js and .prettierrc files with the basic configuration needed.
+ *
+ * @returns {Promise<void>}
+ */
 async function initProject() {
   log("INFO", "initProject", "Initializing project.");
   const config = vscode.workspace.getConfiguration("tcsg");
   const inputFilePath = config.get("tailwindInputFilePath");
   const outputFilePath = config.get("tailwindOutputFilePath");
-
-  const editor = vscode.window.activeTextEditor;
-  if (!editor) {
-    vscode.window.showErrorMessage(
-      "No active text editor found. Terminating process."
-    );
-    log(
-      "ERROR",
-      "initProject",
-      "No active text editor found. Terminating process."
-    );
-    show();
-    return;
-  }
 
   const projectRoot = vscode.workspace.workspaceFolders
     ? vscode.workspace.workspaceFolders[0].uri.fsPath
@@ -83,15 +74,13 @@ async function initProject() {
     log("INFO", "initProject", "Creating Tailwind config file.");
     const tailwindConfigPath = path.join(projectRoot, "tailwind.config.js");
     log("DEBUG", "initProject", `Tailwind config path: ${tailwindConfigPath}`);
-    const tailwindConfigContent = `
-module.exports = {
+    const tailwindConfigContent = `module.exports = {
   content: [],
   theme: {
     extend: {},
   },
   plugins: [],
-}
-    `;
+}`;
     await fs.writeFile(tailwindConfigPath, tailwindConfigContent, "utf-8");
     log("INFO", "initProject", "Tailwind config file created successfully.");
   } catch (err) {
@@ -135,23 +124,32 @@ module.exports = {
 
   /* Agregamos los scripts básicos en el archivo package.json */
   try {
+    let inputFilePathRelative = "";
+    let outputFilePathRelative = "";
+    let minifiedOutputFilePathRelative = "";
     const packagePath = path.join(projectRoot, "package.json");
-    log("INFO", "initProject", "Adding scripts to package.json.");
-    const outputFileName = path.basename(outputFilePath, ".css");
-    const outputFileFolderPath = path.dirname(outputFilePath);
-    const minifiedOutputFilePath = path.join(
-      outputFileFolderPath,
-      `${outputFileName}.min.css`
-    );
-    const inputFilePathRelative = path.normalize(
-      path.relative(projectRoot, inputFilePath)
-    );
-    const outputFilePathRelative = path.normalize(
-      path.relative(projectRoot, outputFilePath)
-    );
-    const minifiedOutputFilePathRelative = path.normalize(
-      path.relative(projectRoot, minifiedOutputFilePath)
-    );
+
+    if (inputFilePath && outputFilePath) {
+      log("INFO", "initProject", "Adding scripts to package.json.");
+      const outputFileName = path.basename(outputFilePath, ".css");
+      const outputFileFolderPath = path.dirname(outputFilePath);
+      const minifiedOutputFilePath = path.join(
+        outputFileFolderPath,
+        `${outputFileName}.min.css`
+      );
+
+      /* Relativizar paths */
+      inputFilePathRelative = path.normalize(
+        path.relative(projectRoot, inputFilePath)
+      );
+      outputFilePathRelative = path.normalize(
+        path.relative(projectRoot, outputFilePath)
+      );
+      minifiedOutputFilePathRelative = path.normalize(
+        path.relative(projectRoot, minifiedOutputFilePath)
+      );
+    }
+
     log("DEBUG", "initProject", `Input file path: ${inputFilePathRelative}`);
     log("DEBUG", "initProject", `Output file path: ${outputFilePathRelative}`);
     log(
@@ -170,7 +168,6 @@ module.exports = {
     };
 
     packageJSON.scripts = {
-      ...packageJSON.scripts,
       ...newScripts,
     };
 
