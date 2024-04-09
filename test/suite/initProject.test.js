@@ -2,10 +2,10 @@ const vscode = require("vscode");
 const assert = require("assert");
 const path = require("path");
 const fs = require("fs");
-const { globalSetup, globalTeardown } = require("../suiteSetup");
+const { globalSetup, resetTestFolder } = require("../suiteSetup");
 
 suite("[initProject] [WW]", function () {
-  this.timeout(60000);
+  this.timeout(90000);
   suiteSetup(globalSetup);
 
   /**
@@ -13,7 +13,8 @@ suite("[initProject] [WW]", function () {
    * This test case will check if a project with basic files is initialized correctly.
    * This test case will check if the scripts are created correctly when the I/O files are not setup in the VSCode config.
    */
-  test("[WW-0] - No I/O files", async () => {
+  test("[WW-0] - No I/O files", async function () {
+    this.timeout(45000);
     const prettierExpectedConfigContent = {
       plugins: ["prettier-plugin-tailwindcss"],
     };
@@ -42,7 +43,6 @@ suite("[initProject] [WW]", function () {
         fs.existsSync(filePath),
         `${file} should exist after initProject command`
       );
-      console.log(`[initProject] [WW-0] - ${file} is created.`);
     });
 
     const prettierConfigPath = path.resolve(workspacePath, ".prettierrc");
@@ -54,7 +54,6 @@ suite("[initProject] [WW]", function () {
       prettierExpectedConfigContent,
       ".prettierrc content is not as expected"
     );
-    console.log("[initProject] [WW-0] - .prettierrc content is as expected.");
 
     const packagePath = path.resolve(workspacePath, "package.json");
     const packageJSON = JSON.parse(fs.readFileSync(packagePath, "utf8"));
@@ -63,8 +62,44 @@ suite("[initProject] [WW]", function () {
       packageExpectedScripts,
       "package.json scripts are not as expected"
     );
-    console.log("[initProject] [WW-0] - package.json scripts are as expected.");
   });
 
-  suiteTeardown(globalTeardown);
+  test("[WW-1] - With I/O files", async function () {
+    this.timeout(45000);
+    const packageExpectedScripts = {
+      "format-all": "prettier --write .",
+      "tailwind-build": 'tailwindcss -i "css\\input.css" -o "css\\output.css"',
+      "minify-css": 'cleancss -o "css\\output.min.css" "css\\output.css"',
+      "minify-js": "",
+      prep: "npm run tailwind-build && npm run minify-css && npm run minify-js",
+    };
+
+    const workspacePath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+    /* Actualizamos la configuración para agregar los archivos */
+    const inputAbsolutePath = path.resolve(workspacePath, "css/input.css");
+    const outputAbsolutePath = path.resolve(workspacePath, "css/output.css");
+    const config = vscode.workspace.getConfiguration("tcsg");
+    await config.update(
+      "tailwindInputFilePath",
+      inputAbsolutePath,
+      vscode.ConfigurationTarget.Workspace
+    );
+    await config.update(
+      "tailwindOutputFilePath",
+      outputAbsolutePath,
+      vscode.ConfigurationTarget.Workspace
+    );
+
+    await vscode.commands.executeCommand("tcsg.initProject");
+
+    const packagePath = path.resolve(workspacePath, "package.json");
+    const packageJSON = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+    assert.deepStrictEqual(
+      packageJSON.scripts,
+      packageExpectedScripts,
+      "package.json scripts are not as expected"
+    );
+  });
+
+  teardown(resetTestFolder);
 });
