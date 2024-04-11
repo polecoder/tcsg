@@ -5,6 +5,7 @@ const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 // Admitir promesas con fs
 const fs = require("fs").promises;
+const fsn = require("fs");
 const { log, show } = require("../logger");
 
 /**
@@ -21,10 +22,6 @@ const { log, show } = require("../logger");
  */
 async function initProject() {
   log("INFO", "initProject", "Initializing project.");
-  const config = vscode.workspace.getConfiguration("tcsg");
-  const inputFilePath = config.get("tailwindInputFilePath");
-  const outputFilePath = config.get("tailwindOutputFilePath");
-
   const projectRoot = vscode.workspace.workspaceFolders
     ? vscode.workspace.workspaceFolders[0].uri.fsPath
     : "";
@@ -40,8 +37,27 @@ async function initProject() {
       "No workspace folder found. Terminating process."
     );
     show();
-    return;
+    throw new Error("No workspace folder found. Terminating process.");
   }
+
+  /* Chequear si el package.json ya existe */
+  const packagePath = path.join(projectRoot, "package.json");
+  if (fsn.existsSync(packagePath)) {
+    vscode.window.showErrorMessage(
+      "Project already initialized. Terminating process."
+    );
+    log(
+      "ERROR",
+      "initProject",
+      "Project already initialized. Terminating process."
+    );
+    show();
+    throw new Error("Project already initialized. Terminating process.");
+  }
+
+  const config = vscode.workspace.getConfiguration("tcsg");
+  const inputFilePath = config.get("tailwindInputFilePath");
+  const outputFilePath = config.get("tailwindOutputFilePath");
 
   /* Inicializar el paquete con las dependencias básicas */
   try {

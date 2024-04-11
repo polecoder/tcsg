@@ -35,8 +35,9 @@ async function resetTestFolder() {
  * @brief Create a test folder for the extension's tests.
  *
  * The created folder will be located in the system's temporary directory.
+ * Returns the path to the created folder.
  *
- * @returns {Promise<void>}
+ * @returns {Promise<string>}
  */
 async function createTestFolder() {
   const testWorkspacePath = path.join(os.tmpdir(), "vscode-test-tcsg");
@@ -55,31 +56,10 @@ async function createTestFolder() {
   console.log(
     `[createTestFolder] - Test folder created at ${testWorkspacePath}.`
   );
-}
-
-/**
- * @brief Global configuration for the test suite.
- *
- * This function is called before the test suite starts.
- *
- * @returns {Promise<void>}
- */
-async function globalSetup() {
-  // Creo la carpeta de pruebas
-  await createTestFolder();
-  // Abrir el workspace de pruebas ubicado en la carpeta temporal del equipo
-  const testWorkspaceUri = vscode.Uri.file(
-    path.resolve(os.tmpdir(), "vscode-test-tcsg")
-  );
-  assert.ok(
-    fs.existsSync(testWorkspaceUri.fsPath),
-    "Test workspace not found."
-  );
-  await vscode.commands.executeCommand("vscode.openFolder", testWorkspaceUri);
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  return testWorkspacePath;
 }
 
 module.exports = {
-  globalSetup,
   resetTestFolder,
+  createTestFolder,
 };
