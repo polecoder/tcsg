@@ -71,8 +71,8 @@ suite("[initProject] With Workspace Tests", async function () {
     this.timeout(60000);
     const packageExpectedScripts = {
       "format-all": "prettier --write .",
-      "tailwind-build": 'tailwindcss -i "css\\input.css" -o "css\\output.css"',
-      "minify-css": 'cleancss -o "css\\output.min.css" "css\\output.css"',
+      "tailwind-build": 'tailwindcss -i "css/input.css" -o "css/output.css"',
+      "minify-css": 'cleancss -o "css/output.min.css" "css/output.css"',
       "minify-js": "",
       prep: "npm run tailwind-build && npm run minify-css && npm run minify-js",
     };
