@@ -4,10 +4,11 @@ const util = require("util");
 // Admitir promesas con exec
 const exec = util.promisify(require("child_process").exec);
 
-/*
-PRE-CONDICIÓN: ninguna
-POST-CONDICIÓN: Hace build del archivo de Tailwind CSS usando las rutas de los archivos I/O guardadas en la configuración del workspace
-*/
+/**
+ * Compiles the Tailwind CSS file using the input and output file paths saved in the workspace configuration.
+ *
+ * @returns {Promise<void>}
+ */
 async function buildProject() {
   // Asumimos que el usuario hace el build de Tailwind en el primer directorio del workspace
   const projectRoot = vscode.workspace.workspaceFolders

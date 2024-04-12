@@ -9,10 +9,10 @@ function run() {
     color: true,
   });
 
-  const testsRoot = path.resolve(__dirname, "..");
+  const testsRoot = __dirname;
 
   return new Promise((resolve, reject) => {
-    glob("**/**.test.js", { cwd: testsRoot })
+    glob("**.test.js", { cwd: testsRoot })
       .then((files) => {
         // Add files to the test suite
         files.forEach((file) => mocha.addFile(path.resolve(testsRoot, file)));

@@ -1,15 +1,18 @@
 const vscode = require("vscode");
 const { log, show } = require("../logger");
 
-/*
-PRE-CONDICIÓN:
-lang == 'html' || lang == 'javascript'
-
-POST-CONDICIÓN:
-1) Si el editor activo es de tipo 'html' o 'javascript', inserta el snippet en el editor
-2) Si el editor activo no es de tipo 'html' o 'javascript', muestra un mensaje de error de lenguaje
-3) Si no se encuentra un editor activo, muestra un mensaje de error de no encontrar editor activo
-*/
+/**
+ * @brief Insert a snippet into the active text editor.
+ *
+ * @description
+ * 1) If the active editor is of type 'html' or 'javascript', insert the snippet into the editor.
+ * 2) If the active editor is not of type 'html' or 'javascript', display a language error message.
+ * 3) If no active editor is found, display a no active editor error message.
+ *
+ * @param {Object} snippet
+ * @param {string} lang
+ * @returns {Promise<void>}
+ */
 async function insertSnippet(snippet, lang) {
   const editor = vscode.window.activeTextEditor;
 

@@ -9,14 +9,13 @@ async function main() {
 
     await runTests({
       extensionDevelopmentPath,
-      extensionTestsPath: path.resolve(__dirname, "./suite/workspace"),
+      extensionTestsPath: path.resolve(__dirname, "./suite/workspace/index"),
       launchArgs: [testFolderPath, "--disable-extensions"],
     });
-    console.log("$$$ TEST FOLDER CREATED AT ", testFolderPath);
 
     await runTests({
       extensionDevelopmentPath,
-      extensionTestsPath: path.resolve(__dirname, "./suite/noWorkspace"),
+      extensionTestsPath: path.resolve(__dirname, "./suite/noWorkspace/index"),
       launchArgs: ["--disable-extensions"],
     });
   } catch (err) {

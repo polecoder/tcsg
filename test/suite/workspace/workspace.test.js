@@ -2,7 +2,7 @@ const vscode = require("vscode");
 const assert = require("assert");
 const path = require("path");
 const fs = require("fs");
-const { resetTestFolder } = require("../suiteSetup");
+const { resetTestFolder } = require("../../suiteSetup");
 
 suite("[initProject] With Workspace Tests", async function () {
   this.timeout(180000);

@@ -5,6 +5,11 @@ const { log, show } = require("../logger");
 PRE-CONDICIÓN: ninguna
 POST-CONDICIÓN: Guarda las rutas de los archivos I/O para el build de Tailwind en la configuración del workspace.
 */
+/**
+ * Saves the Tailwind Input/Output files to the workspace configuration.
+ *
+ * @returns {Promise<void>}
+ */
 async function selectIOFiles() {
   // Obtenemos las rutas de los archivos I/O desde la configuración actual del workspace
   const config = vscode.workspace.getConfiguration("tcsg");

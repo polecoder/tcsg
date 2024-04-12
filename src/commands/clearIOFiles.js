@@ -5,6 +5,11 @@ const { log, show } = require("../logger");
 PRE-CONDICIÓN: ninguna
 POST-CONDICIÓN: Hace clear de las rutas de los archivos I/O para el build de Tailwind en la configuración del workspace.
 */
+/**
+ * Clears the Tailwind Input/Output files from the workspace configuration.
+ *
+ * @returns {Promise<void>}
+ */
 async function clearIOFiles() {
   // Obtenemos las rutas de los archivos I/O desde la configuración actual del workspace
   const config = vscode.workspace.getConfiguration("tcsg");
