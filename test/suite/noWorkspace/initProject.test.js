@@ -4,6 +4,10 @@ const assert = require("assert");
 suite("[initProject] No Workspace Tests", async function () {
   this.timeout(15000);
 
+  /**
+   * Test case for the initProject command.
+   * This test case will check if an error is thrown when there is no workspace folder.
+   */
   test("[NW-0] - No workspace folder", async function () {
     this.timeout(15000);
     try {

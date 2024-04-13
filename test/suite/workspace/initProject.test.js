@@ -5,7 +5,7 @@ const fs = require("fs");
 const { resetTestFolder } = require("./suiteSetup");
 
 suite("[initProject] With Workspace Tests", async function () {
-  this.timeout(210000);
+  this.timeout(150000);
 
   /**
    * Test case for the initProject command.
@@ -13,7 +13,7 @@ suite("[initProject] With Workspace Tests", async function () {
    * 2) This test case will check if the scripts are created correctly when the I/O files are not setup in the VSCode config.
    */
   test("[WW-0] - No I/O files", async function () {
-    this.timeout(70000);
+    this.timeout(50000);
     const prettierExpectedConfigContent = {
       plugins: ["prettier-plugin-tailwindcss"],
     };
@@ -68,11 +68,14 @@ suite("[initProject] With Workspace Tests", async function () {
    * This test case will check if the scripts are created correctly when the I/O files are correctly setup in the VSCode config.
    */
   test("[WW-1] - With I/O files", async function () {
-    this.timeout(70000);
+    this.timeout(50000);
+    const inputRelativePath = path.join("css", "input.css");
+    const outputRelativePath = path.join("css", "output.css");
+    const minOutputRelativePath = path.join("css", "output.min.css");
     const packageExpectedScripts = {
       "format-all": "prettier --write .",
-      "tailwind-build": 'tailwindcss -i "css/input.css" -o "css/output.css"',
-      "minify-css": 'cleancss -o "css/output.min.css" "css/output.css"',
+      "tailwind-build": `tailwindcss -i "${inputRelativePath}" -o "${outputRelativePath}"`,
+      "minify-css": `cleancss -o "${minOutputRelativePath}" "${outputRelativePath}"`,
       "minify-js": "",
       prep: "npm run tailwind-build && npm run minify-css && npm run minify-js",
     };
@@ -108,7 +111,7 @@ suite("[initProject] With Workspace Tests", async function () {
    * This test case will check if the command throws an error when the project is already initialized.
    */
   test("[WW-2] - Project already initialized", async function () {
-    this.timeout(70000);
+    this.timeout(50000);
     await vscode.commands.executeCommand("tcsg.initProject");
 
     try {

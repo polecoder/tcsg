@@ -1,10 +1,6 @@
 const vscode = require("vscode");
 const { log, show } = require("../logger");
 
-/*
-PRE-CONDICIÓN: ninguna
-POST-CONDICIÓN: Hace clear de las rutas de los archivos I/O para el build de Tailwind en la configuración del workspace.
-*/
 /**
  * Clears the Tailwind Input/Output files from the workspace configuration.
  *

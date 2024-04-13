@@ -7,6 +7,10 @@ const { resetTestFolder } = require("./suiteSetup");
 suite("[buildProject] With workspace tests", async function () {
   this.timeout(30000);
 
+  /**
+   * Test case for the buildProject command.
+   * This test case will check if the project builds correctly when the I/O files are correctly configured.
+   */
   test("[WW-0] - Build project", async function () {
     this.timeout(30000);
 

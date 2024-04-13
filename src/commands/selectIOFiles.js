@@ -1,10 +1,6 @@
 const vscode = require("vscode");
 const { log, show } = require("../logger");
 
-/*
-PRE-CONDICIÓN: ninguna
-POST-CONDICIÓN: Guarda las rutas de los archivos I/O para el build de Tailwind en la configuración del workspace.
-*/
 /**
  * Saves the Tailwind Input/Output files to the workspace configuration.
  *
