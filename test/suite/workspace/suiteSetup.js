@@ -17,7 +17,7 @@ async function resetTestFolder() {
       "tailwind.config.js",
       "package.json",
       "package-lock.json",
-      "node_modules",
+      path.join("css", "output.min.css"),
       ".vscode",
     ];
     relativePathsToRemove.forEach((relativePath) => {

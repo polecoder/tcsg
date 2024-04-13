@@ -1,6 +1,6 @@
 const path = require("path");
 const { runTests } = require("@vscode/test-electron");
-const { createTestFolder } = require("./suiteSetup");
+const { createTestFolder } = require("./suite/workspace/suiteSetup");
 
 async function main() {
   try {

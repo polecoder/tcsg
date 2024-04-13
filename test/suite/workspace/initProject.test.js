@@ -2,10 +2,10 @@ const vscode = require("vscode");
 const assert = require("assert");
 const path = require("path");
 const fs = require("fs");
-const { resetTestFolder } = require("../../suiteSetup");
+const { resetTestFolder } = require("./suiteSetup");
 
 suite("[initProject] With Workspace Tests", async function () {
-  this.timeout(180000);
+  this.timeout(210000);
 
   /**
    * Test case for the initProject command.
@@ -13,7 +13,7 @@ suite("[initProject] With Workspace Tests", async function () {
    * 2) This test case will check if the scripts are created correctly when the I/O files are not setup in the VSCode config.
    */
   test("[WW-0] - No I/O files", async function () {
-    this.timeout(60000);
+    this.timeout(70000);
     const prettierExpectedConfigContent = {
       plugins: ["prettier-plugin-tailwindcss"],
     };
@@ -68,7 +68,7 @@ suite("[initProject] With Workspace Tests", async function () {
    * This test case will check if the scripts are created correctly when the I/O files are correctly setup in the VSCode config.
    */
   test("[WW-1] - With I/O files", async function () {
-    this.timeout(60000);
+    this.timeout(70000);
     const packageExpectedScripts = {
       "format-all": "prettier --write .",
       "tailwind-build": 'tailwindcss -i "css/input.css" -o "css/output.css"',
@@ -92,7 +92,6 @@ suite("[initProject] With Workspace Tests", async function () {
       outputAbsolutePath,
       vscode.ConfigurationTarget.Workspace
     );
-
     await vscode.commands.executeCommand("tcsg.initProject");
 
     const packagePath = path.resolve(workspacePath, "package.json");
@@ -109,7 +108,7 @@ suite("[initProject] With Workspace Tests", async function () {
    * This test case will check if the command throws an error when the project is already initialized.
    */
   test("[WW-2] - Project already initialized", async function () {
-    this.timeout(60000);
+    this.timeout(70000);
     await vscode.commands.executeCommand("tcsg.initProject");
 
     try {

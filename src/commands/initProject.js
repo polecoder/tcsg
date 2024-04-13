@@ -19,6 +19,13 @@ const { log, show } = require("../logger");
  * 3) Creates the tailwind.config.js and .prettierrc files with the basic configuration needed.
  *
  * @returns {Promise<void>}
+ * @throws {Error}
+ * 1) If no workspace folder is found.
+ * 2) If the project is already initialized.
+ * 3) If there is an error initializing the npm package.
+ * 4) If there is an error creating the Tailwind config file.
+ * 5) If there is an error creating the Prettier config file.
+ * 6) If there is an error adding the scripts to the package.json file.
  */
 async function initProject() {
   log("INFO", "initProject", "Initializing project.");
@@ -82,7 +89,7 @@ async function initProject() {
       "Error initializing npm package. Terminating process."
     );
     show();
-    return;
+    throw new Error("Error initializing npm package. Terminating process.");
   }
 
   /* Creamos el archivo tailwind.config.js para la configuración de Tailwind CSS */
@@ -109,7 +116,9 @@ async function initProject() {
       "Error creating Tailwind config file. Terminating process."
     );
     show();
-    return;
+    throw new Error(
+      "Error creating Tailwind config file. Terminating process."
+    );
   }
 
   /* Creamos el archivo .prettierrc para la configuración de Prettier */
@@ -135,7 +144,9 @@ async function initProject() {
       "Error creating Prettier config file. Terminating process."
     );
     show();
-    return;
+    throw new Error(
+      "Error creating Prettier config file. Terminating process."
+    );
   }
 
   /* Agregamos los scripts básicos en el archivo package.json */
@@ -203,7 +214,9 @@ async function initProject() {
       "Error adding scripts to package.json. Terminating process."
     );
     show();
-    return;
+    throw new Error(
+      "Error adding scripts to package.json. Terminating process."
+    );
   }
   vscode.window.showInformationMessage("Project initialized successfully.");
   log("INFO", "initProject", "Project initialized successfully.");
