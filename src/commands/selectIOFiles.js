@@ -7,6 +7,24 @@ const { log, show } = require("../logger");
  * @returns {Promise<void>}
  */
 async function selectIOFiles() {
+  const projectRoot = vscode.workspace.workspaceFolders
+    ? vscode.workspace.workspaceFolders[0].uri.fsPath
+    : "";
+  log("DEBUG", "selectIOFiles", `Project root: ${projectRoot}`);
+
+  if (!projectRoot) {
+    vscode.window.showErrorMessage(
+      "No workspace folder found. Terminating process."
+    );
+    log(
+      "ERROR",
+      "selectIOFiles",
+      "No workspace folder found. Terminating process."
+    );
+    show();
+    throw new Error("No workspace folder found. Terminating process.");
+  }
+
   // Obtenemos las rutas de los archivos I/O desde la configuración actual del workspace
   const config = vscode.workspace.getConfiguration("tcsg");
   let inputFilePath = config.get("tailwindInputFilePath");
@@ -48,7 +66,7 @@ async function selectIOFiles() {
         "No input file selected. Terminating process."
       );
       show();
-      return;
+      throw new Error("No input file selected. Terminating process.");
     }
 
     // OUTPUT FILE
@@ -70,7 +88,8 @@ async function selectIOFiles() {
         "selectIOFiles",
         "No output file selected. Terminating process."
       );
-      return;
+      show();
+      throw new Error("No output file selected. Terminating process.");
     }
 
     // Guardamos la ruta de los archivos seleccionados globalmente

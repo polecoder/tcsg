@@ -7,6 +7,8 @@ const { resetTestFolder } = require("./suiteSetup");
 suite("[buildProject] With workspace tests", async function () {
   this.timeout(30000);
 
+  teardown(resetTestFolder);
+
   /**
    * Test case for the buildProject command.
    * This test case will check if the project builds correctly when the I/O files are correctly configured.
@@ -38,6 +40,4 @@ suite("[buildProject] With workspace tests", async function () {
       "output.min.css should exist after buildProject command"
     );
   });
-
-  teardown(resetTestFolder);
 });

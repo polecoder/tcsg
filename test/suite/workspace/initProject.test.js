@@ -4,8 +4,10 @@ const path = require("path");
 const fs = require("fs");
 const { resetTestFolder } = require("./suiteSetup");
 
-suite("[initProject] With Workspace Tests", async function () {
+suite("[initProject] With workspace tests", async function () {
   this.timeout(150000);
+
+  teardown(resetTestFolder);
 
   /**
    * Test case for the initProject command.
@@ -125,6 +127,4 @@ suite("[initProject] With Workspace Tests", async function () {
       );
     }
   });
-
-  teardown(resetTestFolder);
 });

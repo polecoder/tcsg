@@ -5,8 +5,6 @@ const path = require("path");
 const { resetTestFolder } = require("./suiteSetup");
 
 suite("[clearIOFiles] With workspace tests", function () {
-  this.timeout(15000);
-
   let showQuickPickStub;
 
   setup(async function () {
@@ -40,8 +38,6 @@ suite("[clearIOFiles] With workspace tests", function () {
    * This test case will check if the I/O files are cleared when the user confirms the operation.
    */
   test("[WW-0] - Clear I/O files", async function () {
-    this.timeout(7500);
-
     showQuickPickStub.resolves("Yes, clear build files");
 
     await vscode.commands.executeCommand("tcsg.clearIOFiles");
@@ -59,8 +55,6 @@ suite("[clearIOFiles] With workspace tests", function () {
    * This test case will check if the I/O files are not cleared when the user cancels the operation.
    */
   test("[WW-1] - Cancel clear I/O files", async function () {
-    this.timeout(7500);
-
     showQuickPickStub.resolves("No, leave existing files");
 
     await vscode.commands.executeCommand("tcsg.clearIOFiles");
