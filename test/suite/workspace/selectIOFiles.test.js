@@ -7,7 +7,7 @@ const { resetTestFolder } = require("./suiteSetup");
 suite("[selectIOFiles] With workspace tests", function () {
   let showQuickPickStub, showOpenDialogStub;
 
-  setup(async function () {
+  setup(function () {
     showQuickPickStub = sinon.stub(vscode.window, "showQuickPick");
     showOpenDialogStub = sinon.stub(vscode.window, "showOpenDialog");
   });
