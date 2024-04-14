@@ -32,7 +32,7 @@ class SnippetProvider {
             vscode.TreeItemCollapsibleState.None
           );
 
-          (treeItem.label = "INSERT SNIPPET: " + key),
+          (treeItem.label = "SNIPPET: " + key),
             (treeItem.command = {
               command: "tcsg.insertSnippet",
               title: "Insert Selected Snippet",
@@ -57,7 +57,7 @@ class SnippetProvider {
             vscode.TreeItemCollapsibleState.None
           );
 
-          (treeItem.label = "INSERT SNIPPET: " + key),
+          (treeItem.label = "SNIPPET: " + key),
             (treeItem.command = {
               command: "tcsg.insertSnippet",
               title: "Insert Selected Snippet",
